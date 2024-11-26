@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Tampilan Dokumen</title>
+    <style>
+        * {
+            transition: background-color 2s, color 2s;
+        }
+
+        body.dark-theme {
+            background-color: skyblue;
+            color: black; /* Mengubah warna teks di mode gelap */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        iframe {
+            width: 700px;
+            height: 500px;
+            border: 1px solid;
+            display: inline-flex;
+        }
+
+        .btn {
+            background-color: DodgerBlue;
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            cursor: pointer;
+            font-size: 20px;
+            border-radius: 20px;
+            animation: slidein 3s linear 0s infinite;
+        }
+
+        .btn-theme {
+            background-color: dodgerblue;
+            border: none;
+            border-radius: 15px;
+            color: white;
+            padding: 10px 30px;
+            cursor: pointer;
+            font-size: 12px;
+            box-shadow: 0 0 5px dodgerblue, 0 0 15px dodgerblue, 0 0 25px dodgerblue, 0 0 100px dodgerblue;
+            position: sticky;
+            top: 0;
+        }
+        .btn:hover {
+            background-color: royalblue;
+        }
+
+        .docx-link {
+            font-size: 18px;
+            color: #0056b3;
+            text-decoration: none;
+        }
+
+        .docx-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <button class="btn-theme" role="button" class="btn btn-block btn-lg" id="theme_toggle" onclick="toggleTheme()"></button>
+    <center>
+    <div>
+        <h1 style="text-shadow: 0 0 20px skyblue, 0 0 40px #0081bc;">Tampilan Dokumen</h1>
+        <mark style="font-size: 20px;">Silahkan pilih tugas praktek jst nya ya cantikk</mark><br>
+        <br>
+        <div class="wrapper">
+            <h2>Dokumen PDF</h2>
+            <h2><u>Modul 1</u></h2>
+                <iframe class="iframe" src="Tugas 1 prak jst.pdf"></iframe>
+                    <br>
+                    <a href="Tugas 1 prak jst.pdf" class="btn" target="blank" download="Tugas 1 prak jst.pdf">Download Modul 1</a><br>
+                    <br>
+            <h2><u>Modul 2</u></h2>
+                <iframe class="iframe" src="IhsanArifAbdillah_228160003_TugasPrakJST_modul2.pdf"></iframe>
+                    <br>
+                    <a href="IhsanArifAbdillah_228160003_TugasPrakJST_modul2.pdf" class="btn" target="blank" download="IhsanArifAbdillah_228160003_TugasPrakJST_modul2.pdf">Download Modul 2</a><br>
+                    <br>
+            <h2><u>Modul 3</u></h2>
+                <iframe class="iframe" src="IhsanArifAbdillah_228160003_TugasPrakJST_modul3.pdf"></iframe>
+                    <br>
+                    <a href="IhsanArifAbdillah_228160003_TugasPrakJST_modul3.pdf" class="btn" target="blank" download='IhsanArifAbdillah_228160003_TugasPrakJST_modul3.pdf'>Download Modul 3</a><br>
+                    <br>
+            <h2><u>Modul 5</u></h2>
+                <iframe class="iframe" src="tugas 5 matlab.pdf"></iframe><br>
+                    <a href="tugas 5 matlab.pdf" class="btn" target="blank" download= 'tugas 5 matlab.pdf'>Download Modul 5</a><br>
+                    <br>
+            <h2><u>Modul 6</u></h2>
+                <iframe class="iframe" src="tugasPrakJSTbackpropagation_6.pdf"></iframe><br>
+                    <a href="tugasPrakJSTbackpropagation_6.pdf" class="btn" target="blank" download='tugasPrakJSTbackpropagation_6.pdf'>Download Modul 6</a>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#theme_toggle').on('click', function () {
+                if ($('body').hasClass('dark-theme')) {
+                    $(this).toggleClass('btn-light')
+                    $(this).addClass('btn-dark');
+                    $('h3').html("Mode Terang");
+                    $('body').toggleClass('dark-theme');
+                    $('.card').toggleClass('dark-theme');
+                    localStorage.setItem("mode", "light-theme");
+                } else {
+                    $(this).toggleClass('btn-light');
+                    $(this).removeClass('btn-dark');
+                    $('h3').html("Mode Gelap");
+                    $('body').toggleClass('dark-theme');
+                    $('.card').toggleClass('dark-theme');
+                    localStorage.setItem("mode", "dark-theme");
+                }
+            });
+
+            // Cek localStorage untuk preferensi browser
+            if (!localStorage.getItem("mode")) {
+                if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                    localStorage.setItem("mode", "dark-theme");
+                } else {
+                    localStorage.setItem("mode", "light-theme");
+                }
+            }
+
+            // Atur antarmuka sesuai dengan localStorage
+            if (localStorage.getItem("mode") === "dark-theme") {
+                $('#theme_toggle').removeClass('btn-dark')
+                $('#theme_toggle').addClass('btn-light');
+                $('body').addClass('dark-theme');
+                $('.card').addClass('dark-theme');
+                $('h3').html("Mode Gelap");
+                document.getElementById("theme_toggle").checked = true;
+            } else {
+                $('#theme_toggle').addClass('btn-dark');
+                $('#theme_toggle').removeClass('btn-light');
+                $('body').removeClass('dark-theme');
+                $('.card').removeClass('dark-theme');
+                $('h3').html("Mode Terang");
+                document.getElementById("theme_toggle").checked = false;
+            }
+        });
+    </script>
+    </center>
+</body>
+</html>
